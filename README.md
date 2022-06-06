@@ -113,7 +113,7 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
 ### Action inputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
-| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | Description | Required | Default value
+| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | Description | Required | Default value
 | --- | --- | --- | --- |
 | `api-key` | The API key for the NuGet server. Used when pushing the NuGet packages and symbols. | yes | - |
 | `fail-if-exists` | Indicates whether this actions should fail if the NuGet package being pushed already exists. Defaults to false. | no | false
