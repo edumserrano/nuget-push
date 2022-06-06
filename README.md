@@ -10,8 +10,6 @@ A composite [GitHub action](https://docs.github.com/en/actions/learn-github-acti
 
 ## Why should you use this action ?
 
-:warning: **The main reason for using this action has now been fixed in the nuget tool. See the issues linked below. Even so, this action still has value, for instance, it provides better feedback on the result of pushing NuGet packages.**
-
 I started by pushing my NuGet package and symbols using a command such as:
 
 ```
@@ -42,6 +40,12 @@ For more information about this see:
 
 This action was created to avoid this from happening. This action pushes the NuGet package and only if it succeeds attempts to do a following push of the corresponding symbols package.
 
+:warning: The main reason for using this action has now been fixed in the nuget tool. See the GitHub issues linked above. **Even so, this action still has value:**
+
+- It provides better feedback on the result of pushing NuGet packages, specially when you push multiple packages.
+- It allows you to control if the NuGet push operation should result in a failure if the package already exists or not. See the `fail-if-exists` [action input parameter](#action-inputs).
+
+
 ## Usage when pushing a single package and corresponding symbols
 
 If you only want to push a single NuGet package and corresponding symbols you can do as shown in the example below. You must at least specify the `nuget-package` input parameter, if you don't have a symbols package you don't need to use the `symbols-package` input parameter.
@@ -57,6 +61,7 @@ If you only want to push a single NuGet package and corresponding symbols you ca
 # The next step is using powershell to parse the action's output but you can use whatever you prefer.
 # Note that in order to read the step outputs the action step must have an id.
 - name: Log output
+  if: steps.nuget-push.conclusion != 'skipped' && always() # run regardless if the previous step failed or not, just as long as it wasn't skipped
   shell: pwsh
   run: |
     $pushResult = '${{ steps.nuget-push.outputs.push-result }}' | ConvertFrom-Json
@@ -91,10 +96,11 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
   uses: edumserrano/nuget-push@v1
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
-    working-directory: '/my-packages-dir'
+    working-directory: 'my-packages-dir'
 # The next step is using powershell to parse the action's output but you can use whatever you prefer.
 # Note that in order to read the step outputs the action step must have an id.
 - name: Log output
+  if: steps.nuget-push.conclusion != 'skipped' && always() # run regardless if the previous step failed or not, just as long as it wasn't skipped
   shell: pwsh
   run: |
     $pushResult = '${{ steps.nuget-push.outputs.push-result }}' | ConvertFrom-Json
@@ -110,13 +116,50 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
     }
 ```
 
+## Usage when pushing a single NuGet package and symbols package but you don't want to specify the filenames for the packages
+
+You can use the `working-directory` input parameter to accomplish this. Just make sure that the given directory only contains a single NuGet package and potentially the corresponding symbols package.
+
+As an example consider that the `my-packages-dir` contained the following files:
+
+- my-awesome-package.nupkg
+- my-awesome-package.snupkg
+
+Then you could do:
+
+```yml
+- name: Publish NuGet and symbols
+  id: nuget-push
+  uses: edumserrano/nuget-push@v1
+  with:
+    api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
+    working-directory: 'my-packages-dir'
+# The next step is using powershell to parse the action's output but you can use whatever you prefer.
+# Note that in order to read the step outputs the action step must have an id.
+- name: Log output
+  if: steps.nuget-push.conclusion != 'skipped' && always() # run regardless if the previous step failed or not, just as long as it wasn't skipped
+  shell: pwsh
+  run: |
+    $pushResult = '${{ steps.nuget-push.outputs.push-result }}' | ConvertFrom-Json
+    $pushResultAsJsonIndented = ConvertTo-Json $pushResult
+    Write-Output $pushResultAsJsonIndented  # outputs the result of the nuget push operation as an indented JSON string
+    Write-Output '${{ steps.nuget-push.outputs.status }}' # outputs the overall status of the nuget push action
+    
+    # since we only pushed one package/symbols there's no need to iterate the packages list
+    # there will only be one element in the array
+    $package = $pushResult.packages[0] 
+    Write-Output "$($package.status)"  # outputs the status of the nuget push operation
+    Write-Output "$($package.package)" # outputs the NuGet package name that was pushed
+    Write-Output "$($package.symbols)" # outputs the symbols package name that was pushed
+```
+
 ### Action inputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
 | Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | Description | Required | Default value
 | --- | --- | --- | --- |
 | `api-key` | The API key for the NuGet server. Used when pushing the NuGet packages and symbols. | yes | - |
-| `fail-if-exists` | Indicates whether this actions should fail if the NuGet package being pushed already exists. Defaults to false. | no | false
+| `fail-if-exists` | Indicates whether this actions should fail if the version of the NuGet package being pushed already exists in the server. If multiple NuGet packages are being pushed it will fail if a single one already exists. | no | false
 | `working-directory` | The directory that will be used to push nuget packages. It will push all *.nupkg and corresponding symbol packages present in the directory. | no | - |
 | `nuget-package` | The filepath for the NuGet package to be pushed. | no | - |
 | `symbols-package` | The filepath for the symbols package to be pushed. | no | -
