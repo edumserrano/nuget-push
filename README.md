@@ -160,7 +160,7 @@ Then you could do:
 | --- | --- | --- | --- |
 | `api-key` | The API key for the NuGet server. Used when pushing the NuGet packages and symbols. | yes | - |
 | `fail-if-exists` | Indicates whether this actions should fail if the version of the NuGet package being pushed already exists in the server. If multiple NuGet packages are being pushed it will fail if a single one already exists. | no | false
-| `working-directory` | The directory that will be used to push nuget packages. It will push all *.nupkg and corresponding symbol packages present in the directory. | no | - |
+| `working-directory` | The directory that will be used to push NuGet packages. It will push all NuGet packages (\*.nupkg) and corresponding symbol packages (\*.snupkg) present in the directory. | no | - |
 | `nuget-package` | The filepath for the NuGet package to be pushed. | no | - |
 | `symbols-package` | The filepath for the symbols package to be pushed. | no | -
 

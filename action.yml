@@ -13,7 +13,7 @@ inputs:
     required: false
     default: 'false'
   working-directory:
-    description: 'The directory that will be used to push nuget packages. It will push all *.nupkg and corresponding symbol packages present in the directory.'
+    description: 'The directory that will be used to push NuGet packages. It will push all NuGet packages (*.nupkg) and corresponding symbol packages (*.snupkg) present in the directory.'
     required: false
   nuget-package:
     description: 'The filepath for the NuGet package to be pushed.'
