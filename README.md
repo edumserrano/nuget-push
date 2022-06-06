@@ -123,7 +123,8 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
 
 ### Action outputs
 
-| Name | Description
+<!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
+| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description
 | --- | --- |
 | `status` | The overall status of pushing the NuGet packages and corresponding symbols. Possible values are `ok` or `error`. |
 | `push-result` | The result of pushing the NuGet packages and corresponding symbols as a JSON string. |
