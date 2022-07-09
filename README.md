@@ -6,6 +6,21 @@
 [![GitHub Sponsors](https://img.shields.io/github/sponsors/edumserrano)](https://github.com/sponsors/edumserrano)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Eduardo%20Serrano-blue.svg)](https://www.linkedin.com/in/eduardomserrano/)
 
+- [Description](#description)
+- [Why should you use this action ?](#why-should-you-use-this-action-)
+- [Usage when pushing a single package and corresponding symbols](#usage-when-pushing-a-single-package-and-corresponding-symbols)
+- [Usage when pushing multiple packages and corresponding symbols](#usage-when-pushing-multiple-packages-and-corresponding-symbols)
+- [Usage when pushing a single NuGet package and symbols package but you don't want to specify the filenames for the packages](#usage-when-pushing-a-single-nuget-package-and-symbols-package-but-you-dont-want-to-specify-the-filenames-for-the-packages)
+- [Action inputs](#action-inputs)
+- [Action outputs](#action-outputs)
+- [Example JSON output from `push-result`](#example-json-output-from-push-result)
+  - [Some notes regarding the JSON object from the `push-result` output](#some-notes-regarding-the-json-object-from-the-push-result-output)
+- [Action exit status codes](#action-exit-status-codes)
+- [Action logs](#action-logs)
+- [Dev notes](#dev-notes)
+
+## Description
+
 A composite [GitHub action](https://docs.github.com/en/actions/learn-github-actions/finding-and-customizing-actions) that can be used to push NuGet packages and symbols to [nuget.org](https://www.nuget.org/).
 
 ## Why should you use this action ?
@@ -153,7 +168,7 @@ Then you could do:
     Write-Output "$($package.symbols)" # outputs the symbols package name that was pushed
 ```
 
-### Action inputs
+## Action inputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
 | Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | Description | Required | Default value
@@ -164,7 +179,7 @@ Then you could do:
 | `nuget-package` | The filepath for the NuGet package to be pushed. | no | - |
 | `symbols-package` | The filepath for the symbols package to be pushed. | no | -
 
-### Action outputs
+## Action outputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
 | Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description
