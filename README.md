@@ -171,21 +171,21 @@ Then you could do:
 ## Action inputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
-| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | Description | Required | Default value
-| --- | --- | --- | --- |
-| `api-key` | The API key for the NuGet server. Used when pushing the NuGet packages and symbols. | yes | - |
-| `fail-if-exists` | Indicates whether this actions should fail if the version of the NuGet package being pushed already exists in the server. If multiple NuGet packages are being pushed it will fail if a single one already exists. | no | false
-| `working-directory` | The directory that will be used to push NuGet packages. It will push all NuGet packages (\*.nupkg) and corresponding symbol packages (\*.snupkg) present in the directory. | no | - |
-| `nuget-package` | The filepath for the NuGet package to be pushed. | no | - |
-| `symbols-package` | The filepath for the symbols package to be pushed. | no | -
+| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; | Description                                                                                                                                                                                                                                         | Required | Default value |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| `api-key`                                                                                                                                                                   | The API key for the NuGet server. Used when pushing the NuGet packages and symbols.                                                                                                                                                                 | yes      | -             |
+| `fail-if-exists`                                                                                                                                                            | Indicates whether this actions should fail if the version of the NuGet package being pushed already exists in the server. If multiple NuGet packages are being pushed it will fail if a single one already exists.                                  | no       | false         |
+| `working-directory`                                                                                                                                                         | The directory that will be used to push NuGet packages. It will push all NuGet packages (\*.nupkg) and corresponding symbol packages (\*.snupkg) present in the directory. Cannot be specified in combination with `nuget-package` input parameter. | no       | -             |
+| `nuget-package`                                                                                                                                                             | The filepath for the NuGet package to be pushed. Cannot be specified in combination with working-directory input parameter.                                                                                                                         | no       | -             |
+| `symbols-package`                                                                                                                                                           | The filepath for the symbols package to be pushed.                                                                                                                                                                                                  | no       | -             |
 
 ## Action outputs
 
 <!-- the &nbsp; is a trick to expand the width of the table column. You add as many &nbsp; as required to get the width you want. -->
-| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description
-| --- | --- |
-| `status` | The overall status of pushing the NuGet packages and corresponding symbols. Possible values are `ok` or `error`. |
-| `push-result` | The result of pushing the NuGet packages and corresponding symbols as a JSON string. |
+| Name &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description                                                                                                      |
+| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `status`                                                            | The overall status of pushing the NuGet packages and corresponding symbols. Possible values are `ok` or `error`. |
+| `push-result`                                                       | The result of pushing the NuGet packages and corresponding symbols as a JSON string.                             |
 
 ## Example JSON output from `push-result`
 

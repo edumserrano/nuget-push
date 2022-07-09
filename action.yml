@@ -41,6 +41,14 @@ runs:
         Write-Output "::set-output name=nuget-push-already-exists-status::nuget-already-exists"
         Write-Output "::set-output name=nuget-push-failed-status::nuget-push-failed"
         Write-Output "::set-output name=symbols-push-failed-status::symbols-push-failed"
+
+        $workingDirectory = '${{ inputs.working-directory }}'
+        $nugetPackage = '${{ inputs.nuget-package }}'
+        if($workingDirectory -ne '' && $nugetPackage -ne '')
+        {
+          Write-Output "::error::'working-directory' and 'nuget-package' input parameters cannot be specified at the same time."
+          Exit 1
+        }
     - name: Push all NuGet and Symbols from working directory
       shell: pwsh
       id: push-workding-dir
