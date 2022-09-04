@@ -68,7 +68,7 @@ If you only want to push a single NuGet package and corresponding symbols you ca
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1
+  uses: edumserrano/nuget-push@v1.1.0
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
     nuget-package: 'my-awesome-package.nupkg'
@@ -83,10 +83,10 @@ If you only want to push a single NuGet package and corresponding symbols you ca
     $pushResultAsJsonIndented = ConvertTo-Json $pushResult
     Write-Output $pushResultAsJsonIndented  # outputs the result of the nuget push operation as an indented JSON string
     Write-Output '${{ steps.nuget-push.outputs.status }}' # outputs the overall status of the nuget push action
-    
+
     # since we only pushed one package/symbols there's no need to iterate the packages list
     # there will only be one element in the array
-    $package = $pushResult.packages[0] 
+    $package = $pushResult.packages[0]
     Write-Output "$($package.status)"  # outputs the status of the nuget push operation
     Write-Output "$($package.package)" # outputs the NuGet package name that was pushed
     Write-Output "$($package.symbols)" # outputs the symbols package name that was pushed
@@ -108,7 +108,7 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1
+  uses: edumserrano/nuget-push@v1.1.0
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
     working-directory: 'my-packages-dir'
@@ -122,7 +122,7 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
     $pushResultAsJsonIndented = ConvertTo-Json $pushResult
     Write-Output $pushResultAsJsonIndented  # outputs the result of the nuget push operation as an indented JSON string
     Write-Output '${{ steps.nuget-push.outputs.status }}' # outputs the overall status of the nuget push action
-    
+
     # iterates over all list of packages and outputs the data from the nuget push operation for each
     foreach($package in $pushResult.packages) {
         Write-Output "$($package.status)"  # outputs the status of the nuget push operation
@@ -145,7 +145,7 @@ Then you could do:
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1
+  uses: edumserrano/nuget-push@v1.1.0
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
     working-directory: 'my-packages-dir'
@@ -159,10 +159,10 @@ Then you could do:
     $pushResultAsJsonIndented = ConvertTo-Json $pushResult
     Write-Output $pushResultAsJsonIndented  # outputs the result of the nuget push operation as an indented JSON string
     Write-Output '${{ steps.nuget-push.outputs.status }}' # outputs the overall status of the nuget push action
-    
+
     # since we only pushed one package/symbols there's no need to iterate the packages list
     # there will only be one element in the array
-    $package = $pushResult.packages[0] 
+    $package = $pushResult.packages[0]
     Write-Output "$($package.status)"  # outputs the status of the nuget push operation
     Write-Output "$($package.package)" # outputs the NuGet package name that was pushed
     Write-Output "$($package.symbols)" # outputs the symbols package name that was pushed
@@ -238,7 +238,7 @@ If this behavior is not desirable and you always want to check the `push-result`
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1
+  uses: edumserrano/nuget-push@v1.1.0
   continue-on-error: true
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}'
