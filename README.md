@@ -68,7 +68,7 @@ If you only want to push a single NuGet package and corresponding symbols you ca
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1.0
+  uses: edumserrano/nuget-push@v1.2.0
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
     nuget-package: 'my-awesome-package.nupkg'
@@ -108,7 +108,7 @@ This action will pair `my-awesome-package.nupkg` with `my-awesome-package.snupkg
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1.0
+  uses: edumserrano/nuget-push@v1.2.0
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
     working-directory: 'my-packages-dir'
@@ -145,7 +145,7 @@ Then you could do:
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1.0
+  uses: edumserrano/nuget-push@v1.2.0
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}' # this example is using GitHub secrets to pass the API key
     working-directory: 'my-packages-dir'
@@ -238,7 +238,7 @@ If this behavior is not desirable and you always want to check the `push-result`
 ```yml
 - name: Publish NuGet and symbols
   id: nuget-push
-  uses: edumserrano/nuget-push@v1.1.0
+  uses: edumserrano/nuget-push@v1.2.0
   continue-on-error: true
   with:
     api-key: '${{ secrets.NUGET_PUSH_API_KEY }}'
