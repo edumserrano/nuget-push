@@ -44,7 +44,7 @@ runs:
 
         $workingDirectory = '${{ inputs.working-directory }}'
         $nugetPackage = '${{ inputs.nuget-package }}'
-        if($workingDirectory -ne '' && $nugetPackage -ne '')
+        if($workingDirectory -ne '' -and $nugetPackage -ne '')
         {
           Write-Output "::error::'working-directory' and 'nuget-package' input parameters cannot be specified at the same time."
           Exit 1
