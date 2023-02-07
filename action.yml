@@ -36,11 +36,11 @@ runs:
       shell: pwsh
       id: setup
       run: |
-        Write-Output "::set-output name=nuget-server-url::https://api.nuget.org/v3/index.json"
-        Write-Output "::set-output name=nuget-push-ok-status::ok"
-        Write-Output "::set-output name=nuget-push-already-exists-status::nuget-already-exists"
-        Write-Output "::set-output name=nuget-push-failed-status::nuget-push-failed"
-        Write-Output "::set-output name=symbols-push-failed-status::symbols-push-failed"
+        Write-Output "nuget-server-url=https://api.nuget.org/v3/index.json" >> $env:GITHUB_OUTPUT
+        Write-Output "nuget-push-ok-status=ok" >> $env:GITHUB_OUTPUT
+        Write-Output "nuget-push-already-exists-status=nuget-already-exists" >> $env:GITHUB_OUTPUT
+        Write-Output "nuget-push-failed-status=nuget-push-failed" >> $env:GITHUB_OUTPUT
+        Write-Output "symbols-push-failed-status=symbols-push-failed" >> $env:GITHUB_OUTPUT
 
         $workingDirectory = '${{ inputs.working-directory }}'
         $nugetPackage = '${{ inputs.nuget-package }}'
@@ -135,7 +135,7 @@ runs:
         }
 
         $outputAsJson = $output | ConvertTo-Json -compress
-        Write-Output "::set-output name=push-result::$outputAsJson"
+        Write-Output "push-result=$outputAsJson" >> $env:GITHUB_OUTPUT
         Exit 0 # always exit sucessfully regardless of the exit codes from 'dotnet nuget push' command, the exit code for the action will be set in the next step
     - name: Push specific NuGet and Symbols
       shell: pwsh
@@ -217,7 +217,7 @@ runs:
         }
 
         $outputAsJson = $output | ConvertTo-Json -compress
-        Write-Output "::set-output name=push-result::$outputAsJson"
+        Write-Output "push-result=$outputAsJson" >> $env:GITHUB_OUTPUT
         Exit 0 # always exit sucessfully regardless of the exit codes from 'dotnet nuget push' command, the exit code for the action will be set in the next step
     - name: Set action outputs
       shell: pwsh
@@ -257,8 +257,8 @@ runs:
 
         # set action output
         $pushResultAsJson = $pushResult | ConvertTo-Json -compress
-        Write-Output "::set-output name=push-result::$pushResultAsJson"
-        Write-Output "::set-output name=status::$($pushResult.status)"
+        Write-Output "push-result=$pushResultAsJson" >> $env:GITHUB_OUTPUT
+        Write-Output "status=$($pushResult.status)" >> $env:GITHUB_OUTPUT
 
         if($failed) {
           Write-Output "Some NuGet packages weren't uploaded successfully."
