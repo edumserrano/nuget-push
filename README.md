@@ -31,7 +31,7 @@ I started by pushing my NuGet package and symbols using a command such as:
 dotnet nuget push ./*.nupkg --api-key <api-key> --source https://api.nuget.org/v3/index.json --skip-duplicate
 ```
 
-The above command has a flag set to skip publishing the NuGet (.nupgk) if the version has already been publish. This allowed the workflow to run without failing even if it didn't wproduce a new version of the package.
+The above command has a flag set to skip publishing the NuGet (.nupgk) if the version has already been publish. This allowed the workflow to run without failing even if it didn't produce a new version of the package.
 
 However there was an issue with this approach in that even if the NuGet package already existed the `--skip-duplicate` flag only makes it so that the `nuget push` command doesn't fail due to the returned `409` from the server **but it still tries to push the symbols package after**.
 
