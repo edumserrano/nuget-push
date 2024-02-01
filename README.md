@@ -56,7 +56,8 @@ For more information about this see:
 
 This action was created to avoid this from happening. This action pushes the NuGet package and only if it succeeds attempts to do a following push of the corresponding symbols package.
 
-:warning: The main reason for using this action has now been fixed in the nuget tool. See the GitHub issues linked above. **Even so, this action still has value:**
+> [!WARNING]
+> The main reason for using this action has now been fixed in the nuget tool. See the GitHub issues linked above. **Even so, this action still has value:**
 
 - It provides better feedback on the result of pushing NuGet packages, specially when you push multiple packages.
 - It allows you to control if the NuGet push operation should result in a failure if the package already exists or not. See the `fail-if-exists` [action input parameter](#action-inputs).
